@@ -3,3 +3,5 @@
 
 
 testing out a different way to display spotify listening data, this time, top tracks of all time, last 6 months, or 4 weeks
+
+* not yet fully functional *
