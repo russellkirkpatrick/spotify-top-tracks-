@@ -1,79 +1,134 @@
-const client_id = '98352c812c794fed91730c51103d5fed';
-const client_secret = '55339878ccd346a4a1bc9a1de9d7f419';
-let access_token = '';
-localStorage.setItem('client_id', client_id);
-localStorage.setItem('client_secret', client_secret);
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="grid.js" async defer></script>
+    <link rel="stylesheet" href="grid.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Silkscreen&display=swap" rel="stylesheet">
+  </head>
+  <body onload="checkLength()">
+    <header>
+      <h1 class="logo">gridify</h1>
+      <input type="checkbox" id="nav-toggle" class="nav-toggle">
+      <nav>
+        <ul>
+          <li>
+            <button id="dummy" onclick="giveAccess()">link spotify</button>
+          </li>
+          <li>
+            <button id="short" onclick="getApiReq('short_term')">last month</button>
+          </li>
+          <li>
+            <button id="med" onclick="getApiReq('medium_term')">6 months</button>
+          </li>
+          <li>
+            <button id="long" onclick="getApiReq('long_term')">all time</button>
+         </li>
+        </ul>
+      </nav>
+      <label  class="nav-toggle-label" for="nav-toggle">
+        <span></span>
+      </label>
+    </header>
+    <div class="background">
 
-let arr  = [];
+      
 
-let count = 0;
 
-const redirect_uri = 'http://127.0.0.1:5501/grid/grid.html';
-const authorize = 'https://accounts.spotify.com/authorize';
-const toplong = 'https://api.spotify.com/v1/me/top/tracks?time_range=long_term&limit=50&offset=0';
-const scope = 'user-modify-playback-state user-read-playback-state user-read-currently-playing user-follow-modify user-follow-read user-read-recently-played user-read-playback-position user-top-read playlist-read-collaborative playlist-modify-public playlist-read-private playlist-modify-private user-read-email user-read-private user-library-modify user-library-read';
+      <!-- <div class="navbar">
+        <ul id="navbar-list">
+          <li id="navbar-list-item">
+            <button id="dummy">link spotify</button>
+          </li>
+          <li id="navbar-list-item">
+            <button id="short">last month</button>
+          </li>
+          <li id="navbar-list-item">
+            <button id="med">6 months</button>
+          </li>
+          <li id="navbar-list-item">
+            <button id="long">all time</button>
+          </li>
+      </ul>
 
-function checkLength(){
-  let queryStringLength = window.location.hash.length;
-  if(queryStringLength > 0){
-    getAccessToken();
-  }
-}
+      </div> -->
 
-function giveAccess(){
-  let url = 'https://accounts.spotify.com/authorize';
-  url += '?response_type=token';
-  url += '&client_id=' + encodeURIComponent(client_id);
-  url += '&scope=' + encodeURIComponent(scope);
-  url += '&redirect_uri=' + encodeURIComponent(redirect_uri);
-  window.location.replace(url);
-}
+      <div class="grid-container">
+        <img id="0" class="grid-items"></img>    
+        <img id="2" class="grid-items"></img>
+        <img id="3" class="grid-items"></img>
+        <img id="4" class="grid-items"></img>
+        <img id="5" class="grid-items"></img>
+        <img id="6" class="grid-items"></img>
+        <img id="7" class="grid-items"></img>
+        <img id="8" class="grid-items"></img>
+        <img id="9" class="grid-items"></img>
+        <img id="10" class="grid-items"></img>
+        <img id="11" class="grid-items"></img>
+        <img id="12" class="grid-items"></img>
+        <img id="13" class="grid-items"></img>
+        <img id="14" class="grid-items"></img>
+        <img id="15" class="grid-items"></img>
+        <img id="16" class="grid-items"></img>
+        <img id="17" class="grid-items"></img>
+        <img id="18" class="grid-items"></img>
+        <img id="19" class="grid-items"></img>
+        <img id="20" class="grid-items"></img>
+        <img id="21" class="grid-items"></img>
+        <img id="22" class="grid-items"></img>
+        <img id="23" class="grid-items"></img>
+        <img id="24" class="grid-items"></img>
+        <img id="25" class="grid-items"></img>
+        <img id="26" class="grid-items"></img>
+        <img id="27" class="grid-items"></img>
+        <img id="28" class="grid-items"></img>
+        <img id="29" class="grid-items"></img>
+        <img id="30" class="grid-items"></img>
+        <img id="31" class="grid-items"></img>
+        <img id="32" class="grid-items"></img>
+        <img id="33" class="grid-items"></img>
+        <img id="34" class="grid-items"></img>
+        <img id="35" class="grid-items"></img>
+        <img id="36" class="grid-items"></img>
+        <img id="37" class="grid-items"></img>
+        <img id="38" class="grid-items"></img>
+        <img id="39" class="grid-items"></img>
+        <img id="40" class="grid-items"></img>
+        <img id="41" class="grid-items"></img>
+        <img id="42" class="grid-items"></img>
+        <img id="43" class="grid-items"></img>
+        <img id="44" class="grid-items"></img>
+        <img id="45" class="grid-items"></img>
+        <img id="46" class="grid-items"></img>
+        <img id="47" class="grid-items"></img>
+        <img id="48" class="grid-items"></img>
+        <img id="49" class="grid-items"></img>
+        <img id="50" class="grid-items"></img>
 
-function getAccessToken(){
-  if(window.location.hash.length > 0){
-    let hash = window.location.hash.substr(14);
-    let token = hash.substr(0, hash.length - 34);
-    localStorage.setItem('access_token', token);
-    access_token = localStorage.getItem('access_token');
-    getApiReq('short_term');
-  }
-}
- 
+
+
+      </div>
+      <!-- <div class="js-container">
+        <div class="link-container">
+          <button class="link-button" onclick="giveAccess()">give access</button>
+        </div>
   
+       
 
-
-function getApiReq(range){
-  fetch(`https://api.spotify.com/v1/me/top/tracks?time_range=${range}&limit=50&offset=0`, {
-    method: 'GET', headers: {
-        'Authorization': 'Bearer '  + access_token 
-    }
-})
-   
-
-
-
-    .then((response) => response.json())
-    .then((data) => {
-      //  console.log(data)
-      var imgs = document.getElementsByClassName("grid-items");
-      for(let i = 0; i < 50; i++){
-        arr[i] = {
-          'song': data.items[i].name,
-          'artist': data.items[i].artists[0].name,
-          'image': data.items[i].album.images[1].url
-        }
-        imgs[i].src = arr[i].image;
-      }
-      console.log(arr)  
-      
-
-      
-      // var imgs = document.getElementsByClassName("grid-items");
-      // for (var i = imgs.length - 1; i >= 0; i-- )
-      // {
-      //   imgs[i].src = arr[i].image;
-      // }
-     
-    
-    }); 
-}
+        <div class="range">
+          <button id="short_term" onclick="getApiReq('long_term')">all time
+            <span id="zerospan">yo</span>
+          </button>
+          <button id="medium_term" onclick="getApiReq('medium_term')">6 months</button>
+          <button id="long_term" onclick="getApiReq('short_term')">last month</button>
+        </div>
+      </div> -->
+    </div>
+  
+  </body>
+</html>
