@@ -225,7 +225,21 @@ h1{
 
 
 
+button{
+  background: white;
+  border: none;
+  height: 20px;
+}
 
+#short{
+  
+}
+#med{
+  
+}
+#long{
+  
+}
 
 
 .grid-container{
