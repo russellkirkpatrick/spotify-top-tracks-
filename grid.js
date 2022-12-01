@@ -8,10 +8,14 @@ let arr  = [];
 
 let count = 0;
 
-const redirect_uri = 'https://russellkirkpatrick.github.io/gridify/';
+const redirect_uri = 'http://127.0.0.1:5501/grid/grid.html';
 const authorize = 'https://accounts.spotify.com/authorize';
 const toplong = 'https://api.spotify.com/v1/me/top/tracks?time_range=long_term&limit=50&offset=0';
 const scope = 'user-modify-playback-state user-read-playback-state user-read-currently-playing user-follow-modify user-follow-read user-read-recently-played user-read-playback-position user-top-read playlist-read-collaborative playlist-modify-public playlist-read-private playlist-modify-private user-read-email user-read-private user-library-modify user-library-read';
+
+let but1 = document.getElementById("short");
+let but2 = document.getElementById("med");
+let but3 = document.getElementById("long");
 
 function checkLength(){
   let queryStringLength = window.location.hash.length;
@@ -65,17 +69,63 @@ function getApiReq(range){
         imgs[i].src = arr[i].image;
       }
       console.log(arr)  
-      
-
-      
-      // var imgs = document.getElementsByClassName("grid-items");
-      // for (var i = imgs.length - 1; i >= 0; i-- )
-      // {
-      //   imgs[i].src = arr[i].image;
-      // }
      
     
     }); 
+
+    //change button color
+    if(range === 'short_term')
+      changer1();
+    if(range === 'medium_term')
+      changer2();
+    if(range === 'long_term')
+      changer3();
+
+    
 }
+
+
+
+
+function changer1(){
+  but1.style.background = '#7fac71';
+  but1.style.color = 'white';
+
+  but2.style.background = 'white';
+  but2.style.color = 'black';
+
+  but3.style.background = 'white';
+  but3.style.color = 'black';
+
+}
+
+function changer2(){
+  but1.style.background = 'white';
+  but1.style.color = 'black';
+
+  but2.style.background = '#7fac71';
+  but2.style.color = 'white';
+
+  but3.style.background = 'white';
+  but3.style.color = 'black';
+}
+
+function changer3(){
+  but1.style.background = 'white';
+  but1.style.color = 'black';
+
+  but2.style.background = 'white';
+  but2.style.color = 'black';
+
+  but3.style.background = '#7fac71';
+  but3.style.color = 'white';
+}
+
+
+
+
+
+
+
 
 //https://codepen.io/okawa-h/pen/OJLOarZ hover data
