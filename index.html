@@ -21,13 +21,13 @@
             <button id="dummy" onclick="giveAccess()">link spotify</button>
           </li>
           <li>
-            <button id="short">last month</button>
+            <button id="short" onclick="getApiReq('short_term')">last month</button>
           </li>
           <li>
-            <button id="med">6 months</button>
+            <button id="med" onclick="getApiReq('medium_term')">6 months</button>
           </li>
           <li>
-            <button id="long">all time</button>
+            <button id="long" onclick="getApiReq('long_term')">all time</button>
          </li>
         </ul>
       </nav>
